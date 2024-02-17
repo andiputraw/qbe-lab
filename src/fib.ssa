@@ -1,0 +1,33 @@
+function w $fib(w %num){
+@start
+    %isOne =w ceqw %num, 1
+    jnz %isOne, @isone, @isnotone
+@isone
+    ret 1
+@isnotone
+    %isZero =w ceqw %num, 0
+    jnz %isZero, @iszero, @recursive
+@iszero
+    ret 0
+@recursive
+    %firstNum =w sub %num, 2
+    %secNum =w sub %num, 1
+    %firstRes =w call $fib(w %firstNum)
+    %secRes =w call $fib(w %secNum)
+
+    %res =w add %firstRes, %secRes
+    ret %res
+}
+
+export function w $main(){
+@start 
+    %buffer =l alloc4 1
+    %ptr =l call $scanf(l $str, ..., l %buffer)
+    %v =w loadw %buffer
+    %result =w call $fib(w %v)
+    call $printf(l $fmt, ..., w 40,w %v)
+    ret 0
+}
+
+data $fmt = {b "\nFibbonaci number dari %d adalah %d\n", b 0}
+data $str = {b "%d", b 0}

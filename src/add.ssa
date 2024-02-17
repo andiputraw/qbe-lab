@@ -1,0 +1,14 @@
+function w $add(w %num1, w %num2){
+@start
+    %result =w add %num1, %num2
+    ret %result
+}
+
+export function w $main(){
+@start 
+    %result =w call $add(w 1,w 1)
+    call $printf(l $fmt, ..., w %result)
+    ret 0
+}
+
+data $fmt = {b "Satu tambah satu adalah %d\n", b 0}
